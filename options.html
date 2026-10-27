@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tarja de Ambiente — Regras</title>
+  <link rel="stylesheet" href="ui.css">
+</head>
+<body class="options">
+  <header class="top">
+    <div class="brand">
+      <img src="icons/icon48.png" alt="" width="28" height="28">
+      <div>
+        <h1>Tarja de Ambiente</h1>
+        <p class="muted">A primeira regra ativa que casar com o endereço é a aplicada. Mude a prioridade com ↑ ↓.</p>
+      </div>
+    </div>
+    <div class="actions">
+      <span id="saved" class="saved" aria-live="polite"></span>
+      <button id="export" class="btn ghost">Exportar</button>
+      <label class="btn ghost" for="importFile">Importar</label>
+      <input type="file" id="importFile" accept="application/json,.json" hidden>
+      <button id="reset" class="btn ghost">Restaurar exemplos</button>
+    </div>
+  </header>
+
+  <main class="grid">
+    <aside class="list-pane">
+      <div class="list-head">
+        <h2>Regras</h2>
+        <button id="add" class="btn">+ Nova</button>
+      </div>
+      <ol id="list" class="rule-list"></ol>
+      <p id="empty" class="muted" hidden>Nenhuma regra ainda.</p>
+    </aside>
+
+    <section class="edit-pane" id="editor" hidden>
+      <div class="field-row">
+        <label class="field grow">
+          <span>Nome da regra</span>
+          <input id="f-name" type="text" maxlength="60">
+        </label>
+        <label class="field toggle">
+          <span>Ativa</span>
+          <input id="f-enabled" type="checkbox">
+        </label>
+      </div>
+
+      <fieldset>
+        <legend>Onde aparece</legend>
+        <div class="field-row">
+          <label class="field">
+            <span>Comparar com</span>
+            <select id="f-target"></select>
+          </label>
+          <label class="field">
+            <span>Tipo de comparação</span>
+            <select id="f-matchType"></select>
+          </label>
+        </div>
+        <label class="field">
+          <span>Padrões <em class="muted">(um por linha — basta um casar)</em></span>
+          <textarea id="f-patterns" rows="5" spellcheck="false" placeholder="staging&#10;homolog.minhaempresa.com.br"></textarea>
+        </label>
+        <p id="regexErr" class="error" hidden></p>
+
+        <div class="tester">
+          <label class="field grow">
+            <span>Testar um endereço</span>
+            <input id="testUrl" type="text" placeholder="https://staging.minhaempresa.com.br/web#action=123" spellcheck="false">
+          </label>
+          <output id="testOut" class="test-out"></output>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Aparência</legend>
+        <div class="field-row">
+          <label class="field grow">
+            <span>Texto da tarja</span>
+            <input id="f-label" type="text" maxlength="30">
+          </label>
+          <label class="field color">
+            <span>Fundo</span>
+            <input id="f-bg" type="color">
+          </label>
+          <label class="field color">
+            <span>Texto</span>
+            <input id="f-fg" type="color">
+          </label>
+        </div>
+        <div class="field-row">
+          <label class="field">
+            <span>Estilo</span>
+            <select id="f-style"></select>
+          </label>
+          <label class="field">
+            <span>Posição</span>
+            <select id="f-position"></select>
+          </label>
+          <label class="field">
+            <span>Opacidade <output id="opOut"></output></span>
+            <input id="f-opacity" type="range" min="0.3" max="1" step="0.02">
+          </label>
+        </div>
+        <div class="field-row checks">
+          <label><input id="f-frame" type="checkbox"> Moldura colorida em volta da tela</label>
+          <label><input id="f-stripes" type="checkbox"> Listras de alerta</label>
+        </div>
+        <label class="field">
+          <span>Prefixo no título da aba <em class="muted">(opcional, ex.: [HML])</em></span>
+          <input id="f-titlePrefix" type="text" maxlength="20" placeholder="[HML] ">
+        </label>
+      </fieldset>
+
+      <div class="preview-wrap">
+        <span class="muted small">Prévia</span>
+        <div id="preview" class="preview">
+          <div class="fake-bar"><i></i><i></i><i></i><span id="previewTitle">Odoo</span></div>
+          <div class="fake-page" id="previewPage">
+            <div class="fake-line w60"></div>
+            <div class="fake-line w80"></div>
+            <div class="fake-line w40"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="danger-row">
+        <button id="dup" class="btn ghost">Duplicar</button>
+        <button id="del" class="btn danger">Excluir regra</button>
+      </div>
+    </section>
+  </main>
+
+  <script src="lib/rules.js"></script>
+  <script src="lib/render.js"></script>
+  <script src="options.js"></script>
+</body>
+</html>

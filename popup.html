@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <title>Tarja de Ambiente</title>
+  <link rel="stylesheet" href="ui.css">
+</head>
+<body class="popup">
+  <header class="pop-head">
+    <img src="icons/icon32.png" alt="" width="20" height="20">
+    <strong>Tarja de Ambiente</strong>
+  </header>
+
+  <section class="pop-body">
+    <div class="host" id="host">—</div>
+
+    <div id="matched" hidden>
+      <div class="chip" id="chip">TESTE</div>
+      <div class="muted" id="ruleName"></div>
+      <label class="switch-row">
+        <input type="checkbox" id="hide">
+        <span>Ocultar a tarja nesta aba</span>
+      </label>
+    </div>
+
+    <div id="unmatched" class="muted" hidden>
+      Nenhuma regra casa com este endereço.
+    </div>
+
+    <div id="unsupported" class="muted" hidden>
+      Esta página não pode receber a tarja (páginas internas do navegador ou da loja de extensões).
+    </div>
+  </section>
+
+  <footer class="pop-foot">
+    <button id="addRule" class="btn">+ Regra para este domínio</button>
+    <button id="openOptions" class="btn ghost">Gerenciar regras</button>
+  </footer>
+
+  <script src="lib/rules.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
