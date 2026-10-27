@@ -1,5 +1,5 @@
 /*
- * Tarja de Ambiente — content script.
+ * Hazard Tape — content script.
  * Lê as regras, descobre se a página atual casa com alguma e desenha a tarja.
  * Reage a mudanças nas regras (sem recarregar) e a navegação em SPAs.
  */

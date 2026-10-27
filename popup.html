@@ -2,13 +2,17 @@
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8">
-  <title>Tarja de Ambiente</title>
+  <title>Hazard Tape</title>
   <link rel="stylesheet" href="ui.css">
 </head>
 <body class="popup">
   <header class="pop-head">
     <img src="icons/icon32.png" alt="" width="20" height="20">
-    <strong>Tarja de Ambiente</strong>
+    <strong>Hazard Tape</strong>
+    <div class="lang" id="langSwitch" role="group">
+      <button type="button" class="lang-btn" data-lang="en" title="English">EN</button>
+      <button type="button" class="lang-btn" data-lang="pt" title="Português">PT</button>
+    </div>
   </header>
 
   <section class="pop-body">
@@ -19,25 +23,26 @@
       <div class="muted" id="ruleName"></div>
       <label class="switch-row">
         <input type="checkbox" id="hide">
-        <span>Ocultar a tarja nesta aba</span>
+        <span data-i18n="hideHere">Ocultar a tarja nesta aba</span>
       </label>
     </div>
 
-    <div id="unmatched" class="muted" hidden>
+    <div id="unmatched" class="muted" data-i18n="noRule" hidden>
       Nenhuma regra casa com este endereço.
     </div>
 
-    <div id="unsupported" class="muted" hidden>
+    <div id="unsupported" class="muted" data-i18n="unsupported" hidden>
       Esta página não pode receber a tarja (páginas internas do navegador ou da loja de extensões).
     </div>
   </section>
 
   <footer class="pop-foot">
-    <button id="addRule" class="btn">+ Regra para este domínio</button>
-    <button id="openOptions" class="btn ghost">Gerenciar regras</button>
+    <button id="addRule" class="btn" data-i18n="addForHost">+ Regra para este domínio</button>
+    <button id="openOptions" class="btn ghost" data-i18n="manage">Gerenciar regras</button>
   </footer>
 
   <script src="lib/rules.js"></script>
+  <script src="lib/i18n.js"></script>
   <script src="popup.js"></script>
 </body>
 </html>

@@ -1,6 +1,6 @@
 <p align="right"><a href="README.md">English</a> · <strong>Português</strong></p>
 
-# Tarja de Ambiente
+# Hazard Tape
 
 [![version](https://img.shields.io/badge/version-1.0.0-111111?style=flat-square)](manifest.json)
 ![Manifest V3](https://img.shields.io/badge/Manifest-V3-F5C518?style=flat-square&labelColor=111111)
@@ -14,7 +14,7 @@ Manifest V3. A tarja é desenhada num Shadow DOM fechado, com `pointer-events: n
 
 ## Em relação ao Environment Indicator
 
-| | Environment Indicator | Tarja de Ambiente |
+| | Environment Indicator | Hazard Tape |
 | --- | --- | --- |
 | Caminho da URL | Só o host | Host e caminho |
 | Isolamento | CSS injetado na página | Shadow DOM fechado |

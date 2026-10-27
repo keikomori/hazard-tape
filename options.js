@@ -2,11 +2,17 @@
   'use strict';
   const R = globalThis.TarjaRules;
   const D = globalThis.TarjaRender;
+  const I = globalThis.HazardI18n;
   const $ = (id) => document.getElementById(id);
 
   let rules = [];
   let selectedId = null;
   let saveTimer = null;
+  let lang = 'pt';
+
+  function tr(key, vars) {
+    return I.t(lang, key, vars);
+  }
 
   const FIELDS = ['name', 'enabled', 'target', 'matchType', 'patterns', 'label', 'bg', 'fg',
     'style', 'position', 'opacity', 'frame', 'stripes', 'titlePrefix'];
@@ -22,7 +28,7 @@
     const run = async () => {
       await chrome.storage.local.set({ [R.STORAGE_KEY]: rules });
       const s = $('saved');
-      s.textContent = 'Salvo ✓';
+      s.textContent = tr('saved');
       s.classList.add('on');
       setTimeout(() => s.classList.remove('on'), 1200);
     };
@@ -39,10 +45,39 @@
       el.appendChild(o);
     }
   }
-  fillSelect($('f-target'), R.TARGETS);
-  fillSelect($('f-matchType'), R.MATCH_TYPES);
-  fillSelect($('f-style'), R.STYLES);
-  fillSelect($('f-position'), R.POSITIONS);
+  function fillLabeledSelects() {
+    const maps = I.SELECTS[lang];
+    for (const [id, map] of [
+      ['f-target', maps.target],
+      ['f-matchType', maps.matchType],
+      ['f-style', maps.style],
+      ['f-position', maps.position]
+    ]) {
+      const el = $(id);
+      const value = el.value;
+      fillSelect(el, map);
+      if (value) el.value = value;
+    }
+  }
+
+  function applyLang() {
+    document.documentElement.lang = lang === 'pt' ? 'pt-BR' : 'en';
+    document.title = tr('docTitle');
+    document.querySelectorAll('[data-i18n]').forEach((el) => {
+      el.textContent = tr(el.dataset.i18n);
+    });
+    document.querySelectorAll('[data-i18n-placeholder]').forEach((el) => {
+      el.placeholder = tr(el.dataset.i18nPlaceholder);
+    });
+    const group = $('langSwitch');
+    if (group) group.setAttribute('aria-label', tr('language'));
+    document.querySelectorAll('.lang-btn').forEach((b) => {
+      const on = b.dataset.lang === lang;
+      b.classList.toggle('on', on);
+      b.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+    fillLabeledSelects();
+  }
 
   /* ---------- lista ---------- */
   function renderList() {
@@ -58,7 +93,7 @@
       const toggle = document.createElement('input');
       toggle.type = 'checkbox';
       toggle.checked = !!r.enabled;
-      toggle.title = r.enabled ? 'Desativar' : 'Ativar';
+      toggle.title = r.enabled ? tr('disable') : tr('enable');
       toggle.addEventListener('click', (e) => {
         e.stopPropagation();
         r.enabled = toggle.checked;
@@ -76,17 +111,17 @@
       const text = document.createElement('div');
       text.className = 'rule-text';
       const name = document.createElement('strong');
-      name.textContent = r.name || 'Sem nome';
+      name.textContent = r.name || tr('unnamed');
       const pats = document.createElement('span');
       pats.className = 'muted small';
       const list = R.splitPatterns(r.patterns);
-      pats.textContent = list.length ? list.slice(0, 2).join(', ') + (list.length > 2 ? ' …' : '') : 'sem padrão';
+      pats.textContent = list.length ? list.slice(0, 2).join(', ') + (list.length > 2 ? ' …' : '') : tr('noPattern');
       text.append(name, pats);
 
       const moves = document.createElement('div');
       moves.className = 'moves';
-      const up = mkMove('↑', 'Subir prioridade', i > 0, () => move(i, -1));
-      const down = mkMove('↓', 'Descer prioridade', i < rules.length - 1, () => move(i, 1));
+      const up = mkMove('↑', tr('moveUp'), i > 0, () => move(i, -1));
+      const down = mkMove('↓', tr('moveDown'), i < rules.length - 1, () => move(i, 1));
       moves.append(up, down);
 
       li.append(toggle, chip, text, moves);
@@ -135,7 +170,7 @@
     $('opOut').textContent = Math.round(Number(r.opacity) * 100) + '%';
     const err = R.regexError(r);
     $('regexErr').hidden = !err;
-    $('regexErr').textContent = err ? 'Regex inválida: ' + err : '';
+    $('regexErr').textContent = err ? tr('badRegex', { msg: err }) : '';
     syncPositionOptions(r);
     renderPreview(r);
     runTest();
@@ -169,17 +204,17 @@
     if (!raw || !r) { out.textContent = ''; return; }
     let loc;
     try { loc = new URL(/^[a-z]+:\/\//i.test(raw) ? raw : 'https://' + raw); } catch (e) {
-      out.textContent = 'Endereço inválido'; out.classList.add('no'); return;
+      out.textContent = tr('badUrl'); out.classList.add('no'); return;
     }
     const hit = R.ruleMatches(Object.assign({}, r, { enabled: true }), loc);
     const winner = R.findMatch(rules, loc);
-    if (!hit) { out.textContent = '✗ Não casa'; out.classList.add('no'); return; }
+    if (!hit) { out.textContent = tr('noMatch'); out.classList.add('no'); return; }
     if (winner && winner.id !== r.id) {
-      out.textContent = '⚠ Casa, mas "' + winner.name + '" tem prioridade';
+      out.textContent = tr('matchBut', { name: winner.name });
       out.classList.add('warn');
       return;
     }
-    out.textContent = r.enabled ? '✓ Casa — esta tarja aparece' : '✓ Casa (regra desativada)';
+    out.textContent = r.enabled ? tr('matchOn') : tr('matchOff');
     out.classList.add(r.enabled ? 'ok' : 'warn');
   }
 
@@ -198,7 +233,7 @@
 
   /* ---------- ações ---------- */
   function addRule(overrides) {
-    const r = R.defaultRule(overrides);
+    const r = R.defaultRule(Object.assign({ name: tr('newEnv') }, overrides || {}));
     rules.push(r);
     save(true);
     select(r.id);
@@ -211,7 +246,7 @@
   $('dup').addEventListener('click', () => {
     const r = current();
     if (!r) return;
-    const copy = Object.assign({}, r, { id: R.uid(), name: r.name + ' (cópia)' });
+    const copy = Object.assign({}, r, { id: R.uid(), name: r.name + tr('copySuffix') });
     rules.splice(rules.indexOf(r) + 1, 0, copy);
     save(true);
     select(copy.id);
@@ -220,7 +255,7 @@
   $('del').addEventListener('click', () => {
     const r = current();
     if (!r) return;
-    if (!confirm('Excluir a regra "' + r.name + '"?')) return;
+    if (!confirm(tr('confirmDelete', { name: r.name }))) return;
     const i = rules.indexOf(r);
     rules.splice(i, 1);
     save(true);
@@ -228,7 +263,7 @@
   });
 
   $('reset').addEventListener('click', () => {
-    if (!confirm('Adicionar as regras de exemplo (Local, Homologação, Produção) ao fim da lista?')) return;
+    if (!confirm(tr('confirmReset'))) return;
     const p = R.presets();
     rules.push(...p);
     save(true);
@@ -250,30 +285,49 @@
     if (!file) return;
     try {
       const imported = R.normalize(JSON.parse(await file.text()));
-      const replace = confirm(
-        imported.length + ' regra(s) no arquivo.\n\nOK = substituir as regras atuais\nCancelar = adicionar ao fim da lista'
-      );
+      const replace = confirm(tr('confirmImport', { n: imported.length }));
       const ids = new Set(rules.map((r) => r.id));
       imported.forEach((r) => { if (!replace && ids.has(r.id)) r.id = R.uid(); });
       rules = replace ? imported : rules.concat(imported);
       save(true);
       select(imported[0] ? imported[0].id : null);
     } catch (err) {
-      alert('Não consegui importar: ' + err.message);
+      alert(tr('importFail', { msg: err.message }));
     }
   });
 
   // Mantém a tela em dia se as regras mudarem em outra aba
   chrome.storage.onChanged.addListener((changes, area) => {
-    if (area !== 'local' || !changes[R.STORAGE_KEY]) return;
+    if (area !== 'local') return;
+    if (changes[I.LANG_KEY] && changes[I.LANG_KEY].newValue !== lang) {
+      lang = I.pick(changes[I.LANG_KEY].newValue);
+      applyLang();
+      renderList();
+      if (current()) afterEdit(current());
+    }
+    if (!changes[R.STORAGE_KEY]) return;
     const incoming = changes[R.STORAGE_KEY].newValue || [];
     if (JSON.stringify(incoming) === JSON.stringify(rules)) return;
     rules = incoming;
     select(rules.some((r) => r.id === selectedId) ? selectedId : rules[0] && rules[0].id);
   });
 
+  document.querySelectorAll('.lang-btn').forEach((b) => {
+    b.addEventListener('click', async () => {
+      if (b.dataset.lang === lang) return;
+      lang = b.dataset.lang;
+      await chrome.storage.local.set({ [I.LANG_KEY]: lang });
+      applyLang();
+      renderList();
+      if (current()) afterEdit(current());
+    });
+  });
+
   /* ---------- início ---------- */
   (async function init() {
+    const stored = await chrome.storage.local.get(I.LANG_KEY);
+    lang = I.pick(stored[I.LANG_KEY]);
+    applyLang();
     await load();
     const novo = new URLSearchParams(location.search).get('novo');
     if (novo) {

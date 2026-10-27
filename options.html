@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Tarja de Ambiente — Regras</title>
+  <title>Hazard Tape — Regras</title>
   <link rel="stylesheet" href="ui.css">
 </head>
 <body class="options">
@@ -11,62 +11,66 @@
     <div class="brand">
       <img src="icons/icon48.png" alt="" width="28" height="28">
       <div>
-        <h1>Tarja de Ambiente</h1>
-        <p class="muted">A primeira regra ativa que casar com o endereço é a aplicada. Mude a prioridade com ↑ ↓.</p>
+        <h1>Hazard Tape</h1>
+        <p class="muted" data-i18n="tagline">A primeira regra ativa que casar com o endereço é a aplicada. Mude a prioridade com ↑ ↓.</p>
       </div>
     </div>
     <div class="actions">
       <span id="saved" class="saved" aria-live="polite"></span>
-      <button id="export" class="btn ghost">Exportar</button>
-      <label class="btn ghost" for="importFile">Importar</label>
+      <div class="lang" id="langSwitch" role="group">
+        <button type="button" class="lang-btn" data-lang="en" title="English">EN</button>
+        <button type="button" class="lang-btn" data-lang="pt" title="Português">PT</button>
+      </div>
+      <button id="export" class="btn ghost" data-i18n="export">Exportar</button>
+      <label class="btn ghost" for="importFile" data-i18n="import">Importar</label>
       <input type="file" id="importFile" accept="application/json,.json" hidden>
-      <button id="reset" class="btn ghost">Restaurar exemplos</button>
+      <button id="reset" class="btn ghost" data-i18n="reset">Restaurar exemplos</button>
     </div>
   </header>
 
   <main class="grid">
     <aside class="list-pane">
       <div class="list-head">
-        <h2>Regras</h2>
-        <button id="add" class="btn">+ Nova</button>
+        <h2 data-i18n="rules">Regras</h2>
+        <button id="add" class="btn" data-i18n="add">+ Nova</button>
       </div>
       <ol id="list" class="rule-list"></ol>
-      <p id="empty" class="muted" hidden>Nenhuma regra ainda.</p>
+      <p id="empty" class="muted" data-i18n="empty" hidden>Nenhuma regra ainda.</p>
     </aside>
 
     <section class="edit-pane" id="editor" hidden>
       <div class="field-row">
         <label class="field grow">
-          <span>Nome da regra</span>
+          <span data-i18n="ruleName">Nome da regra</span>
           <input id="f-name" type="text" maxlength="60">
         </label>
         <label class="field toggle">
-          <span>Ativa</span>
+          <span data-i18n="enabled">Ativa</span>
           <input id="f-enabled" type="checkbox">
         </label>
       </div>
 
       <fieldset>
-        <legend>Onde aparece</legend>
+        <legend data-i18n="where">Onde aparece</legend>
         <div class="field-row">
           <label class="field">
-            <span>Comparar com</span>
+            <span data-i18n="compare">Comparar com</span>
             <select id="f-target"></select>
           </label>
           <label class="field">
-            <span>Tipo de comparação</span>
+            <span data-i18n="matchType">Tipo de comparação</span>
             <select id="f-matchType"></select>
           </label>
         </div>
         <label class="field">
-          <span>Padrões <em class="muted">(um por linha — basta um casar)</em></span>
-          <textarea id="f-patterns" rows="5" spellcheck="false" placeholder="staging&#10;homolog.minhaempresa.com.br"></textarea>
+          <span><span data-i18n="patterns">Padrões</span> <em class="muted" data-i18n="patternsHint">(um por linha — basta um casar)</em></span>
+          <textarea id="f-patterns" rows="5" spellcheck="false" data-i18n-placeholder="patternsPh" placeholder="staging&#10;homolog.minhaempresa.com.br"></textarea>
         </label>
         <p id="regexErr" class="error" hidden></p>
 
         <div class="tester">
           <label class="field grow">
-            <span>Testar um endereço</span>
+            <span data-i18n="testUrl">Testar um endereço</span>
             <input id="testUrl" type="text" placeholder="https://staging.minhaempresa.com.br/web#action=123" spellcheck="false">
           </label>
           <output id="testOut" class="test-out"></output>
@@ -74,47 +78,47 @@
       </fieldset>
 
       <fieldset>
-        <legend>Aparência</legend>
+        <legend data-i18n="appearance">Aparência</legend>
         <div class="field-row">
           <label class="field grow">
-            <span>Texto da tarja</span>
+            <span data-i18n="tapeText">Texto da tarja</span>
             <input id="f-label" type="text" maxlength="30">
           </label>
           <label class="field color">
-            <span>Fundo</span>
+            <span data-i18n="bg">Fundo</span>
             <input id="f-bg" type="color">
           </label>
           <label class="field color">
-            <span>Texto</span>
+            <span data-i18n="fg">Texto</span>
             <input id="f-fg" type="color">
           </label>
         </div>
         <div class="field-row">
           <label class="field">
-            <span>Estilo</span>
+            <span data-i18n="style">Estilo</span>
             <select id="f-style"></select>
           </label>
           <label class="field">
-            <span>Posição</span>
+            <span data-i18n="position">Posição</span>
             <select id="f-position"></select>
           </label>
           <label class="field">
-            <span>Opacidade <output id="opOut"></output></span>
+            <span><span data-i18n="opacity">Opacidade</span> <output id="opOut"></output></span>
             <input id="f-opacity" type="range" min="0.3" max="1" step="0.02">
           </label>
         </div>
         <div class="field-row checks">
-          <label><input id="f-frame" type="checkbox"> Moldura colorida em volta da tela</label>
-          <label><input id="f-stripes" type="checkbox"> Listras de alerta</label>
+          <label><input id="f-frame" type="checkbox"> <span data-i18n="frame">Moldura colorida em volta da tela</span></label>
+          <label><input id="f-stripes" type="checkbox"> <span data-i18n="stripes">Listras de alerta</span></label>
         </div>
         <label class="field">
-          <span>Prefixo no título da aba <em class="muted">(opcional, ex.: [HML])</em></span>
+          <span><span data-i18n="titlePrefix">Prefixo no título da aba</span> <em class="muted" data-i18n="titlePrefixHint">(opcional, ex.: [HML])</em></span>
           <input id="f-titlePrefix" type="text" maxlength="20" placeholder="[HML] ">
         </label>
       </fieldset>
 
       <div class="preview-wrap">
-        <span class="muted small">Prévia</span>
+        <span class="muted small" data-i18n="preview">Prévia</span>
         <div id="preview" class="preview">
           <div class="fake-bar"><i></i><i></i><i></i><span id="previewTitle">Odoo</span></div>
           <div class="fake-page" id="previewPage">
@@ -126,14 +130,15 @@
       </div>
 
       <div class="danger-row">
-        <button id="dup" class="btn ghost">Duplicar</button>
-        <button id="del" class="btn danger">Excluir regra</button>
+        <button id="dup" class="btn ghost" data-i18n="duplicate">Duplicar</button>
+        <button id="del" class="btn danger" data-i18n="delete">Excluir regra</button>
       </div>
     </section>
   </main>
 
   <script src="lib/rules.js"></script>
   <script src="lib/render.js"></script>
+  <script src="lib/i18n.js"></script>
   <script src="options.js"></script>
 </body>
 </html>

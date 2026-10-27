@@ -1,10 +1,11 @@
 /*
- * Tarja de Ambiente — service worker.
+ * Hazard Tape — service worker.
  * Instala as regras de exemplo na primeira vez e mantém o selo (badge)
  * do ícone da extensão com o nome do ambiente da aba.
  */
-importScripts('lib/rules.js');
+importScripts('lib/rules.js', 'lib/i18n.js');
 const R = globalThis.TarjaRules;
+const I = globalThis.HazardI18n;
 
 chrome.runtime.onInstalled.addListener((details) => {
   chrome.storage.local.get(R.STORAGE_KEY, (data) => {
@@ -28,8 +29,11 @@ chrome.runtime.onMessage.addListener((msg, sender) => {
   if (text) {
     chrome.action.setBadgeBackgroundColor({ tabId, color: msg.hidden ? '#868e96' : msg.bg || '#e8590c' });
     if (chrome.action.setBadgeTextColor) chrome.action.setBadgeTextColor({ tabId, color: '#ffffff' });
-    chrome.action.setTitle({ tabId, title: 'Tarja de Ambiente — ' + msg.label + (msg.hidden ? ' (oculta nesta aba)' : '') });
+    chrome.storage.local.get(I.LANG_KEY, (data) => {
+      const note = msg.hidden ? ' ' + I.t(I.pick(data[I.LANG_KEY]), 'hiddenOnTab') : '';
+      chrome.action.setTitle({ tabId, title: 'Hazard Tape — ' + msg.label + note });
+    });
   } else {
-    chrome.action.setTitle({ tabId, title: 'Tarja de Ambiente' });
+    chrome.action.setTitle({ tabId, title: 'Hazard Tape' });
   }
 });

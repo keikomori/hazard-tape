@@ -1,6 +1,6 @@
 <p align="right"><strong>English</strong> · <a href="README.pt-BR.md">Português</a></p>
 
-# Tarja de Ambiente
+# Hazard Tape
 
 [![version](https://img.shields.io/badge/version-1.0.0-111111?style=flat-square)](manifest.json)
 ![Manifest V3](https://img.shields.io/badge/Manifest-V3-F5C518?style=flat-square&labelColor=111111)
@@ -14,7 +14,7 @@ Manifest V3. The banner is drawn in a closed Shadow DOM with `pointer-events: no
 
 ## Compared with Environment Indicator
 
-| | Environment Indicator | Tarja de Ambiente |
+| | Environment Indicator | Hazard Tape |
 | --- | --- | --- |
 | URL path | Host only | Host and path |
 | Isolation | CSS injected into the page | Closed Shadow DOM |

@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
-  "name": "Tarja de Ambiente",
-  "short_name": "Tarja",
+  "name": "Hazard Tape",
+  "short_name": "Hazard Tape",
   "version": "1.0.0",
   "description": "Mostra uma tarja colorida em domínios de teste, homologação ou produção para você nunca confundir o ambiente.",
   "permissions": [
@@ -27,7 +27,7 @@
     }
   ],
   "action": {
-    "default_title": "Tarja de Ambiente",
+    "default_title": "Hazard Tape",
     "default_popup": "popup.html",
     "default_icon": {
       "16": "icons/icon16.png",
