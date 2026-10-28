@@ -13,6 +13,16 @@ A colored banner for Brave, Chrome, Edge, and Firefox. Test, staging, local, and
 
 Manifest V3. The banner is drawn in a closed Shadow DOM with `pointer-events: none`: the page layout stays intact, and clicks pass through.
 
+## Screenshots
+
+| Local | Staging | Production |
+| --- | --- | --- |
+| ![Local environment, green ribbon](docs/screenshots/banner-local.png) | ![Staging environment, orange striped bar](docs/screenshots/banner-staging.png) | ![Production environment, red corner triangle](docs/screenshots/banner-production.png) |
+
+| Rules page | Toolbar popup |
+| --- | --- |
+| ![Rules page listing Local, Staging, and Production](docs/screenshots/options.png) | ![Toolbar popup showing the matched Staging rule](docs/screenshots/popup.png) |
+
 ## Compared with Environment Indicator
 
 | | Environment Indicator | Hazard Tape |
