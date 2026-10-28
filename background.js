@@ -1,9 +1,12 @@
 /*
- * Hazard Tape — service worker.
- * Instala as regras de exemplo na primeira vez e mantém o selo (badge)
- * do ícone da extensão com o nome do ambiente da aba.
+ * Hazard Tape — background.
+ * Chrome executa este arquivo como service worker. Firefox executa a lista
+ * em background.scripts (rules, i18n e este arquivo) como página de evento.
+ * Instala as regras de exemplo na primeira vez e mantém o selo do ícone.
  */
-importScripts('lib/rules.js', 'lib/i18n.js');
+if (typeof importScripts === 'function') {
+  importScripts('lib/rules.js', 'lib/i18n.js');
+}
 const R = globalThis.TarjaRules;
 const I = globalThis.HazardI18n;
 

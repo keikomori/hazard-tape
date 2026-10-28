@@ -46,7 +46,7 @@ Mantenha esta pasta no disco. O navegador carrega a extensão a partir dela. A p
 
 Depois de alterar o código, recarregue a extensão pelo card nessa página.
 
-**Firefox 121 ou mais novo**
+**Firefox 142 ou mais novo**
 
 1. Abra `about:debugging#/runtime/this-firefox`.
 2. Clique em **Carregar extensão temporária** e escolha o `manifest.json` dentro de `hazard-tape`.

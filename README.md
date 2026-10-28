@@ -46,7 +46,7 @@ Keep this folder on disk. The browser loads the extension from it. The rules pag
 
 After a code change, reload the extension from its card on that page.
 
-**Firefox 121 or newer**
+**Firefox 142 or newer**
 
 1. Open `about:debugging#/runtime/this-firefox`.
 2. Click **Load Temporary Add-on** and select `manifest.json` inside `hazard-tape`.

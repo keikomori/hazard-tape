@@ -9,6 +9,7 @@
     "activeTab"
   ],
   "background": {
+    "scripts": ["lib/rules.js", "lib/i18n.js", "background.js"],
     "service_worker": "background.js"
   },
   "content_scripts": [
@@ -43,7 +44,10 @@
   "browser_specific_settings": {
     "gecko": {
       "id": "hazard-tape@keiko.solutions",
-      "strict_min_version": "121.0"
+      "strict_min_version": "142.0",
+      "data_collection_permissions": {
+        "required": ["none"]
+      }
     }
   },
   "icons": {
