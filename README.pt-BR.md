@@ -7,8 +7,9 @@
 ![Chrome](https://img.shields.io/badge/Chrome-4285F4?style=flat-square&logo=googlechrome&logoColor=white)
 ![Brave](https://img.shields.io/badge/Brave-FB542B?style=flat-square&logo=brave&logoColor=white)
 ![Edge](https://img.shields.io/badge/Edge-0078D7?style=flat-square&logo=microsoftedge&logoColor=white)
+![Firefox](https://img.shields.io/badge/Firefox-FF7139?style=flat-square&logo=firefox&logoColor=white)
 
-Tarja colorida para Brave, Chrome e Edge. Teste, homologação, local e produção ficam visualmente distintos, para que o ambiente errado apareça antes de qualquer alteração.
+Tarja colorida para Brave, Chrome, Edge e Firefox. Teste, homologação, local e produção ficam visualmente distintos, para que o ambiente errado apareça antes de qualquer alteração.
 
 Manifest V3. A tarja é desenhada num Shadow DOM fechado, com `pointer-events: none`: o layout da página permanece intacto e os cliques passam direto.
 
@@ -35,13 +36,22 @@ Manifest V3. A tarja é desenhada num Shadow DOM fechado, com `pointer-events: n
 
 ## Instalação
 
-1. Mantenha esta pasta no disco. O navegador carrega a extensão a partir dela.
-2. Abra `brave://extensions`, `chrome://extensions` ou `edge://extensions`.
-3. Ligue o **Modo de desenvolvedor**.
-4. Clique em **Carregar sem compactação** e escolha a pasta `hazard-tape`.
-5. A página de regras abre com três exemplos: Local, Homologação e Produção. Produção começa desligada.
+Mantenha esta pasta no disco. O navegador carrega a extensão a partir dela. A página de regras abre com três exemplos: Local, Homologação e Produção. Produção começa desligada.
+
+**Brave, Chrome ou Edge**
+
+1. Abra `brave://extensions`, `chrome://extensions` ou `edge://extensions`.
+2. Ligue o **Modo de desenvolvedor**.
+3. Clique em **Carregar sem compactação** e escolha a pasta `hazard-tape`.
 
 Depois de alterar o código, recarregue a extensão pelo card nessa página.
+
+**Firefox 121 ou mais novo**
+
+1. Abra `about:debugging#/runtime/this-firefox`.
+2. Clique em **Carregar extensão temporária** e escolha o `manifest.json` dentro de `hazard-tape`.
+
+Essa carga dura até o Firefox fechar. Depois de alterar o código, recarregue a extensão nessa página. A instalação permanente é um pacote assinado no addons.mozilla.org.
 
 ## Regras
 
@@ -64,6 +74,7 @@ Depois de alterar o código, recarregue a extensão pelo card nessa página.
 | Pasta descompactada | Siga a instalação acima. |
 | Chrome Web Store, não listada | Só quem tem o link instala. A atualização é automática. O cadastro de desenvolvedor tem taxa única. |
 | Política do navegador | Brave e Chrome aceitam `ExtensionInstallForcelist` via GPO ou MDM, em todas as máquinas. |
+| addons.mozilla.org | Pacote assinado para instalar no Firefox de forma permanente. Pode ficar não listado. |
 
 ## Desenvolvimento
 

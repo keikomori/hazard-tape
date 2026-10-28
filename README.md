@@ -7,8 +7,9 @@
 ![Chrome](https://img.shields.io/badge/Chrome-4285F4?style=flat-square&logo=googlechrome&logoColor=white)
 ![Brave](https://img.shields.io/badge/Brave-FB542B?style=flat-square&logo=brave&logoColor=white)
 ![Edge](https://img.shields.io/badge/Edge-0078D7?style=flat-square&logo=microsoftedge&logoColor=white)
+![Firefox](https://img.shields.io/badge/Firefox-FF7139?style=flat-square&logo=firefox&logoColor=white)
 
-A colored banner for Brave, Chrome, and Edge. Test, staging, local, and production stay visually distinct, so the wrong environment is obvious before anyone edits it.
+A colored banner for Brave, Chrome, Edge, and Firefox. Test, staging, local, and production stay visually distinct, so the wrong environment is obvious before anyone edits it.
 
 Manifest V3. The banner is drawn in a closed Shadow DOM with `pointer-events: none`: the page layout stays intact, and clicks pass through.
 
@@ -35,13 +36,22 @@ Manifest V3. The banner is drawn in a closed Shadow DOM with `pointer-events: no
 
 ## Installation
 
-1. Keep this folder on disk. The browser loads the extension from it.
-2. Open `brave://extensions`, `chrome://extensions`, or `edge://extensions`.
-3. Turn on **Developer mode**.
-4. Click **Load unpacked** and select the `hazard-tape` folder.
-5. The rules page opens with three examples: Local, Staging, and Production. Production starts disabled.
+Keep this folder on disk. The browser loads the extension from it. The rules page opens with three examples: Local, Staging, and Production. Production starts disabled.
+
+**Brave, Chrome, or Edge**
+
+1. Open `brave://extensions`, `chrome://extensions`, or `edge://extensions`.
+2. Turn on **Developer mode**.
+3. Click **Load unpacked** and select the `hazard-tape` folder.
 
 After a code change, reload the extension from its card on that page.
+
+**Firefox 121 or newer**
+
+1. Open `about:debugging#/runtime/this-firefox`.
+2. Click **Load Temporary Add-on** and select `manifest.json` inside `hazard-tape`.
+
+This load lasts until Firefox closes. After a code change, reload the add-on on that page. A lasting install is a signed package on addons.mozilla.org.
 
 ## Rules
 
@@ -64,6 +74,7 @@ After a code change, reload the extension from its card on that page.
 | Unpacked folder | Follow the installation steps above. |
 | Chrome Web Store, unlisted | Only people with the link can install it. Updates are automatic. Developer registration has a one-time fee. |
 | Browser policy | Brave and Chrome accept `ExtensionInstallForcelist` through GPO or MDM, on every machine. |
+| addons.mozilla.org | Signed package for a lasting Firefox install. It can be unlisted. |
 
 ## Development
 
