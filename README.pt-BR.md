@@ -13,6 +13,16 @@ Tarja colorida para Brave, Chrome, Edge e Firefox. Teste, homologação, local e
 
 Manifest V3. A tarja é desenhada num Shadow DOM fechado, com `pointer-events: none`: o layout da página permanece intacto e os cliques passam direto.
 
+## Telas
+
+| Local | Homologação | Produção |
+| --- | --- | --- |
+| ![Ambiente local, fita verde](docs/screenshots/banner-local.png) | ![Ambiente de homologação, faixa laranja com listras](docs/screenshots/banner-staging.png) | ![Ambiente de produção, triângulo vermelho no canto](docs/screenshots/banner-production.png) |
+
+| Página de regras | Popup da barra de ferramentas |
+| --- | --- |
+| ![Página de regras com Local, Homologação e Produção](docs/screenshots/options-pt.png) | ![Popup mostrando a regra de Homologação casada](docs/screenshots/popup-pt.png) |
+
 ## Em relação ao Environment Indicator
 
 | | Environment Indicator | Hazard Tape |
