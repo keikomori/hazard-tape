@@ -96,6 +96,10 @@ node --test tests/rules.test.js
 | `ui.css` | Popup and options styles, light and dark |
 | `tests/` | Matching-logic tests |
 
+## License
+
+[MIT](LICENSE) © 2026 Keiko Solutions
+
 ---
 
 **Keiko Solutions** · Maintainer: Keiko Mori

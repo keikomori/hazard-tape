@@ -96,6 +96,10 @@ node --test tests/rules.test.js
 | `ui.css` | Estilos do popup e das opções, claro e escuro |
 | `tests/` | Testes da lógica de casamento |
 
+## Licença
+
+[MIT](LICENSE) © 2026 Keiko Solutions
+
 ---
 
 **Keiko Solutions** · Mantenedor: Keiko Mori
